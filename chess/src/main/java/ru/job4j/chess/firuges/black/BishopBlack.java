@@ -18,27 +18,38 @@ public class BishopBlack implements Figure {
 
     @Override
     public Cell[] way(Cell dest) {
-        /*throw new ImpossibleMoveException(
-                String.format("Could not way by diagonal from %s to %s", position, dest)
-        );*/
-        System.out.println();
-        System.out.println(dest.toString());
-        System.out.println(dest.getX());
-        System.out.println(dest.getY());
-        int size = 4;
+        if (!isDiagonal(position, dest)) {
+            throw new ImpossibleMoveException(
+              String.format("Could not move by diagonal from %s to %s", position, dest)
+            );
+        }
+        int size = Math.abs(dest.getX() - position().getX());
         Cell[] steps = new Cell[size];
-        int deltaX = 1;
-        int deltaY = 1;
-        int x = dest.getX();
-        int y = dest.getY();
+        int deltaX = dest.getX() > position().getX() ? 1 : -1;
+        int deltaY = dest.getY() > position().getY() ? 1 : -1;
+        int x = position().getX() + deltaX;
+        int y = position().getY() + deltaY;
         for (int index = 0; index < size; index++) {
             steps[index] = Cell.findBy(x, y);
+            x += deltaX;
+            y += deltaY;
         }
         return steps;
     }
 
     public boolean isDiagonal(Cell source, Cell dest) {
-        return false;
+        int x1 = source.getX();
+        int x2 = dest.getX();
+        int y1 = source.getY();
+        int y2 = dest.getY();
+        boolean res = false;
+        if ((x2 > x1 && y2 < y1) || (x2 < x1 && y2 > y1)) {
+            res = x1 + y1 == x2 + y2;
+        }
+        if ((x2 < x1 && y2 < y1) || (x2 > x1 && y2 > y1)) {
+            res = y1 - x1 == y2 - x2;
+        }
+        return res;
     }
 
     @Override

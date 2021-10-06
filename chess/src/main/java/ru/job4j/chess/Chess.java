@@ -125,7 +125,7 @@ public final class Chess extends Application {
         add(new PawnBlack(Cell.B7), grid);
         add(new PawnBlack(Cell.C7), grid);
         add(new PawnBlack(Cell.D7), grid);
-        add(new PawnBlack(Cell.E7), grid);
+        add(new PawnBlack(Cell.E6), grid);
         add(new PawnBlack(Cell.F7), grid);
         add(new PawnBlack(Cell.G7), grid);
         add(new PawnBlack(Cell.H7), grid);
